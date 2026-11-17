@@ -1,0 +1,136 @@
+@import "tailwindcss";
+
+@theme {
+  --font-display: "Fraunces", "Georgia", ui-serif, serif;
+  --font-body: "Inter", system-ui, ui-sans-serif, sans-serif;
+
+  /* Saffron / marigold gold */
+  --color-saffron-50: #fff8ed;
+  --color-saffron-100: #fdeed6;
+  --color-saffron-200: #f8d8a6;
+  --color-saffron-300: #f3bb69;
+  --color-saffron-400: #ee9c37;
+  --color-saffron-500: #e5821c;
+  --color-saffron-600: #c96613;
+  --color-saffron-700: #a54c12;
+  --color-saffron-800: #853d16;
+  --color-saffron-900: #6d3114;
+
+  /* Deep wine / maroon */
+  --color-wine-50: #fdf4f3;
+  --color-wine-100: #fbe6e4;
+  --color-wine-200: #f6cdca;
+  --color-wine-300: #eda8a3;
+  --color-wine-400: #e0756f;
+  --color-wine-500: #cf4d47;
+  --color-wine-600: #b73633;
+  --color-wine-700: #96292a;
+  --color-wine-800: #7a2427;
+  --color-wine-900: #5c1d21;
+  --color-wine-950: #3a1013;
+
+  /* Warm neutrals */
+  --color-cream: #faf4ea;
+  --color-cream-100: #f4ead9;
+  --color-cream-200: #e9dcc4;
+  --color-ink: #2a211d;
+  --color-ink-soft: #5c4f47;
+
+  --animate-marquee: marquee 30s linear infinite;
+  --animate-float: float 7s ease-in-out infinite;
+  --animate-float-slow: float 9s ease-in-out infinite;
+  --animate-shimmer: shimmer 2.6s linear infinite;
+
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-14px); }
+  }
+  @keyframes shimmer {
+    from { background-position: 200% 0; }
+    to { background-position: -200% 0; }
+  }
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 96px;
+    -webkit-text-size-adjust: 100%;
+  }
+  body {
+    background-color: var(--color-cream);
+    color: var(--color-ink);
+    font-family: var(--font-body);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  ::selection {
+    background: var(--color-saffron-300);
+    color: var(--color-wine-950);
+  }
+}
+
+/* Scroll reveal */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s cubic-bezier(0.22, 0.7, 0.2, 1),
+    transform 0.8s cubic-bezier(0.22, 0.7, 0.2, 1);
+  will-change: opacity, transform;
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* Tab content swap animation */
+@keyframes swap-in {
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: none; }
+}
+.swap-in {
+  animation: swap-in 0.5s cubic-bezier(0.22, 0.7, 0.2, 1) both;
+}
+
+/* Decorative dot pattern */
+.pattern-dots {
+  background-image: radial-gradient(currentColor 1px, transparent 1.2px);
+  background-size: 16px 16px;
+}
+.pattern-grid {
+  background-image: linear-gradient(currentColor 1px, transparent 1px),
+    linear-gradient(90deg, currentColor 1px, transparent 1px);
+  background-size: 42px 42px;
+}
+
+/* Mughal / Indian arch motif */
+.arch {
+  border-top-left-radius: 999px 320px;
+  border-top-right-radius: 999px 320px;
+}
+.arch-sm {
+  border-top-left-radius: 999px 180px;
+  border-top-right-radius: 999px 180px;
+}
+
+.text-gradient-gold {
+  background: linear-gradient(100deg, #f3bb69, #e5821c 40%, #b8360f 75%, #e5821c);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Hide scrollbar for horizontal snap rails */
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal { opacity: 1; transform: none; transition: none; }
+  .animate-marquee, .animate-float, .animate-float-slow { animation: none !important; }
+  html { scroll-behavior: auto; }
+}
